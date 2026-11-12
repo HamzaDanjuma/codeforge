@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeForge</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="body">
+    <!--HEADER-->
+    <header class="header">
+      <a class="logo" href="#">CodeForge</a>
+      <nav class="primary-navigation">
+        <a href="#">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Paths</a>
+        <a href="#">Pricing</a>
+        <a href="#">Login</a>
+      </nav>
+    </header>
+    <!--HERO SECTION-->
+    <section class="hero-section">
+      <div class="hero-content">
+        <p class="hero-eyebrow">learn By Doing</p>
+        <h1>Learn Web Development by Touching Real Code</h1>
+        <p>
+          Stop passively watching tutorials. Edit codes, run sandboxes, and
+          build full-stack applications directly in your browser.
+        </p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary hero-cta-primary">Start Learning</a>
+          <a href="#" class="btn-secondary hero-cta-secondary"
+            >Explore Courses</a
+          >
+        </div>
+      </div>
+      <div class="hero-sandbox">
+        <div class="sandbox-header">
+          <div class="window-controls">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="sandbox-filename">main.js</span>
+          <button type="button" class="btn-run" id="run-btn">
+            &#9654; Run
+          </button>
+        </div>
+
+        <div class="sandbox-body">
+          <textarea id="code-editor" spellcheck="false">
+              <h2 id="heading">Hello CodeForge</h2>
+              <button onclick="changeColor()">Click Me</button>
+              <script>
+                function changeColor(){
+                  document.getElementById("heading").style.color ="#818cf8";
+                  console.log('Color changed to indigo!');
+                }
+              </script>
+            </textarea
+          >
+          <div class="sandbox-preview">
+            <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
+          </div>
+          <div class="sandbox-output">
+            <span class="output-label">Console:</span>
+            <p class="output-text" id="console-output">&gt; Ready...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--FEATURES SECTION-->
+    <section class="features-section">
+      <article class="feature-card">
+        <div class="feature-icon">&#x26a1;</div>
+        <h3 class="feature-title">Live In-Browser Sandbox</h3>
+        <p class="feature-description">
+          Never waste hours configuring local tooling. Code and run tests
+          immediately.
+        </p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">&#x1f4c1;</div>
+        <h3 class="feature-title">Production-Grade projects</h3>
+        <p class="feature-description">
+          Build actual software that testts real full-stack Architecture, not
+          toy calculators.
+        </p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon">&#x1f3af;</div>
+        <h3 class="feature-title">Senior Code Review</h3>
+        <p class="feature-description">
+          Learn the "Why" behind architectural choices, edge cases, and
+          performance tradeoffs.
+        </p>
+      </article>
+    </section>
+    <!--MAIN CONTENT OF THE PAGE-->
+    <main class="main-section">
+      <section class="course-container">
+        <h2 class="course-container-title">Popular Courses</h2>
+        <!--FILTER BUTTON-->
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">
+            All Levels
+          </button>
+          <button class="filter-btn" data-filter="beginner">Beginner</button>
+          <button class="filter-btn" data-filter="intermediate">
+            Intermediate
+          </button>
+          <button class="filter-btn" data-filter="advanced">Advanced</button>
+        </div>
+
+        <div class="card-container"></div>
+      </section>
+    </main>
+    <footer class="footer-section">
+      &copy; 2026 CodeForge. All rights reserved.
+    </footer>
+    <script src="/script.js"></script>
+  </body>
+</html>

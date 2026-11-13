@@ -1,12 +1,30 @@
+import { basicSetup, EditorView } from "https://esm.sh/codemirror@6.0.1";
+import { javascript } from "https://esm.sh/@codemirror/lang-javascript@6.2.2";
+import { oneDark } from "https://esm.sh/@codemirror/theme-one-dark@6.1.2";
+
 const filterBtns = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".course-card");
-
 const runBtn = document.getElementById("run-btn");
-
-const codeEditor = document.getElementById("code-editor");
 const previewFrame = document.getElementById("preview-frame");
 
 const cardContainer = document.querySelector(".card-container");
+
+//initializing editor 
+const defaultCode = ` //Edit this code and run it!
+function changeHeading(){
+  const el = document.getElementById("heading");
+  if(el)el.style.color = "#818cf8";
+  console.log("Heading color updated to indigo!")};
+  changeHeading()`;
+
+const editorView = new EditorView({
+  doc: defaultCode,
+  extensions: [
+    basicSetup,
+    javascript(),
+    oneDark
+  ],
+  parent: document.getElementById("editor-container")
+})
 //COURSES LIST
 const courses = [
   {
@@ -43,7 +61,7 @@ const courses = [
 //Render logic
 function renderCourses(courseList) {
   cardContainer.innerHTML = "";
-  courseList.map((course) => {
+  courseList.forEach((course) => {
     return cardContainer.insertAdjacentHTML(
       "beforeend",
       `<article class="course-card" data-level= ${course.level}>
@@ -88,7 +106,10 @@ runBtn.addEventListener("click", function () {
 
 // code editor
 function executeCode() {
-  const userCode = codeEditor.value;
+  const userCode = `<h2 id="heading">Hello CodeForge</h2>
+  <script>
+    ${editorView.state.doc.toString()}
+  <\/script>`;
   const interceptorScript = `
   <script>
   (function(){

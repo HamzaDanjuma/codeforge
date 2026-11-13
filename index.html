@@ -48,17 +48,7 @@
         </div>
 
         <div class="sandbox-body">
-          <textarea id="code-editor" spellcheck="false">
-              <h2 id="heading">Hello CodeForge</h2>
-              <button onclick="changeColor()">Click Me</button>
-              <script>
-                function changeColor(){
-                  document.getElementById("heading").style.color ="#818cf8";
-                  console.log('Color changed to indigo!');
-                }
-              </script>
-            </textarea
-          >
+          <div id="editor-container"></div>
           <div class="sandbox-preview">
             <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
           </div>
@@ -119,6 +109,6 @@
     <footer class="footer-section">
       &copy; 2026 CodeForge. All rights reserved.
     </footer>
-    <script src="/script.js"></script>
+    <script type="module" src="/script.js"></script>
   </body>
 </html>

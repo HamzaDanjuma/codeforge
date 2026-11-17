@@ -1,30 +1,54 @@
-import { basicSetup, EditorView } from "https://esm.sh/codemirror@6.0.1";
-import { javascript } from "https://esm.sh/@codemirror/lang-javascript@6.2.2";
-import { oneDark } from "https://esm.sh/@codemirror/theme-one-dark@6.1.2";
+import { basicSetup, EditorView } from "https://esm.sh/codemirror@6.0.1?deps=@codemirror/state@6.4.1";
+import { javascript } from "https://esm.sh/@codemirror/lang-javascript@6.2.2?deps=@codemirror/state@6.4.1";
+import { oneDark } from "https://esm.sh/@codemirror/theme-one-dark@6.1.2?deps=@codemirror/state@6.4.1";
+import { Compartment} from "https://esm.sh/@codemirror/state@6.4.1";
+import { html } from "https://esm.sh/@codemirror/lang-html@6.4.9?deps=@codemirror/state@6.4.1";
+import { css } from "https://esm.sh/@codemirror/lang-css@6.2.1?deps=@codemirror/state@6.4.1";
 
 const filterBtns = document.querySelectorAll(".filter-btn");
 const runBtn = document.getElementById("run-btn");
 const previewFrame = document.getElementById("preview-frame");
 
 const cardContainer = document.querySelector(".card-container");
+const tabBtns = document.querySelectorAll(".btn-tab");
+//initializing editor
+const files = {
+  html: `<h2 id="heading">Hello CodeForge</h2>\n<button onclick="changeHeading()">Click Me</button>`,
+  css: `body {\n  font-family: sans-serif;\n  padding: 16px;\n}\n#heading {\n  color: #0f172a;\n}`,
+  js: `function changeHeading() {\n  const el = document.getElementById("heading");\n  el.style.color = "#6366f1";\n  console.log("Heading color updated!");\n}`
+};
+const languageConf = new Compartment();
+let activeTab = "js";
 
-//initializing editor 
-const defaultCode = ` //Edit this code and run it!
-function changeHeading(){
-  const el = document.getElementById("heading");
-  if(el)el.style.color = "#818cf8";
-  console.log("Heading color updated to indigo!")};
-  changeHeading()`;
+const languageMap = new Map([
+  ["html", html()],
+  ["css", css()],
+  ["js", javascript()]
+]);
 
 const editorView = new EditorView({
-  doc: defaultCode,
-  extensions: [
-    basicSetup,
-    javascript(),
-    oneDark
-  ],
-  parent: document.getElementById("editor-container")
-})
+  doc: files[activeTab],
+  extensions: [basicSetup, languageConf.of(javascript()), oneDark],
+  parent: document.getElementById("editor-container"),
+});
+tabBtns.forEach((tabBtn) => {
+  tabBtn.addEventListener("click", function () {
+    tabBtns.forEach((btn) => btn.classList.remove("active"));
+    tabBtn.classList.add("active");
+    files[activeTab] = editorView.state.doc.toString();
+
+    activeTab = tabBtn.dataset.tab;
+    editorView.dispatch({
+      changes: {
+        from: 0,
+        to: editorView.state.doc.length,
+        insert: files[activeTab],
+      },
+      effects: languageConf.reconfigure(languageMap.get(activeTab))
+    });
+  });
+});
+
 //COURSES LIST
 const courses = [
   {
@@ -41,7 +65,7 @@ const courses = [
     id: 2,
     title: "JavaScript Deep Dive & DOM Engine",
     level: "intermediate",
-    rating: "4.8 (2.100)",
+    rating: "4.8 (2,100)",
     description:
       "Understand closures, async/await, event loops, and build an interactive browser-based code-runner.",
     hours: 18,
@@ -64,7 +88,7 @@ function renderCourses(courseList) {
   courseList.forEach((course) => {
     return cardContainer.insertAdjacentHTML(
       "beforeend",
-      `<article class="course-card" data-level= ${course.level}>
+      `<article class="course-card" data-level= "${course.level}">
           <div class="card-header">
           <span class= "course-level level-${course.level}" >${course.level}</span>
             <span class="card-rating">&#9733; ${course.rating}</span>
@@ -106,9 +130,13 @@ runBtn.addEventListener("click", function () {
 
 // code editor
 function executeCode() {
-  const userCode = `<h2 id="heading">Hello CodeForge</h2>
+  files[activeTab] = editorView.state.doc.toString();
+
+  const userCode = `
+  <style> ${files.css}</style>
+  ${files.html}
   <script>
-    ${editorView.state.doc.toString()}
+    ${files.js}
   <\/script>`;
   const interceptorScript = `
   <script>

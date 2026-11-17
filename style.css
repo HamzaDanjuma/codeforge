@@ -93,6 +93,31 @@ a {
   background: #080c15;
   border-bottom: 1px solid var(--border-color);
 }
+.sandbox-tabs{
+  display: flex;
+  gap: 4px;
+}
+.btn-tab{
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tab:hover{
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+.btn-tab.active{
+  color: var(--text-primary);
+  background: #1e293b;
+  border-color: var(--border-color);
+}
 .sandbox-body {
   padding: 16px;
   font-family: monospace, monospace;
@@ -136,15 +161,7 @@ a {
   color: #38bdf8;
   margin-top: 4px;
 }
-.code-func {
-  color: #60a5fa;
-}
-.code-keyword {
-  color: #c084fc;
-}
-.code-string {
-  color: #34d399;
-}
+
 .dot {
   display: inline-block;
   height: 10px;

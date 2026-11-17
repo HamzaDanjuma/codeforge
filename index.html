@@ -24,7 +24,7 @@
         <p class="hero-eyebrow">learn By Doing</p>
         <h1>Learn Web Development by Touching Real Code</h1>
         <p>
-          Stop passively watching tutorials. Edit codes, run sandboxes, and
+          Stop passively watching tutorials. Edit code, run sandboxes, and
           build full-stack applications directly in your browser.
         </p>
         <div class="hero-cta">
@@ -41,7 +41,11 @@
             <span class="dot yellow"></span>
             <span class="dot green"></span>
           </div>
-          <span class="sandbox-filename">main.js</span>
+          <div class="sandbox-tabs">
+            <button  type="button" class="btn-tab" data-tab="html">index.html </button>
+            <button  type="button" class="btn-tab" data-tab="css">style.css</button>
+            <button type="button"  class="btn-tab active" data-tab="js">main.js</button>
+          </div>
           <button type="button" class="btn-run" id="run-btn">
             &#9654; Run
           </button>
@@ -72,9 +76,9 @@
       </article>
       <article class="feature-card">
         <div class="feature-icon">&#x1f4c1;</div>
-        <h3 class="feature-title">Production-Grade projects</h3>
+        <h3 class="feature-title">Production-Grade Projects</h3>
         <p class="feature-description">
-          Build actual software that testts real full-stack Architecture, not
+          Build actual software that tests real full-stack Architecture, not
           toy calculators.
         </p>
       </article>
